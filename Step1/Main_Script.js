@@ -24,16 +24,60 @@ function webGLStart() {
     var u_Vmatrix = gl.getUniformLocation(shaderProgram, 'u_Vmatrix');
 
 
-
-    let cube = new Cube()
-    let supercube = new SuperCube([cube])
-
-    let vertexes = [... cube.GetAllVertexes()]
-    let indexes = [... cube.GetCubesIndexes()]
+    //======================================================================================================================
+    //======================================================================================================================
+    //======================================================================================================================
+    //======================================================================================================================
 
 
 
-    supercube.print()
+
+
+    let cube = new Cube();
+    let supercube = new SuperCube(cube)
+
+    //cube.DevideBy_X_axis(3)
+    /*supercube.Super_DevideBy_X_axis(5)
+
+    supercube.print()*/
+
+    supercube.Super_DevideBy_X_axis(4)
+    let vertexes = [...cube.GetCubesVerteces_AsArray()]
+
+    let indexes = [...cube.Indices];
+
+
+
+    /*for (let i of cube.DevideBy_X_axis(4))
+    {
+        for (let j of i){
+            vertexes.push(j.X, j.Y, j.Z)
+        }
+    }
+
+
+    for (let i of cube.DevideBy_Y_axis(16))
+    {
+        for (let j of i){
+            vertexes.push(j.X, j.Y, j.Z)
+        }
+    }
+
+
+    for (let i of cube.DevideBy_Z_axis(64))
+    {
+        for (let j of i){
+            vertexes.push(j.X, j.Y, j.Z)
+        }
+    }*/
+
+
+
+    //======================================================================================================================
+    //======================================================================================================================
+    //======================================================================================================================
+    //======================================================================================================================
+
 
     let indexBuffer = gl.createBuffer();
     gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, indexBuffer);
