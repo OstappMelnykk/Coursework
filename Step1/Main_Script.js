@@ -34,21 +34,21 @@ function webGLStart() {
 
 
     let cube = new Cube();
-    let supercube = new SuperCube(cube)
+    //let supercube = new SuperCube(cube)
 
     //cube.DevideBy_X_axis(3)
     /*supercube.Super_DevideBy_X_axis(5)
 
     supercube.print()*/
 
-    supercube.Super_DevideBy_X_axis(4)
+    //supercube.Super_DevideBy_X_axis(4)
     let vertexes = [...cube.GetCubesVerteces_AsArray()]
 
     let indexes = [...cube.Indices];
 
 
 
-    /*for (let i of cube.DevideBy_X_axis(4))
+    for (let i of cube.DevideBy_X_axis(4))
     {
         for (let j of i){
             vertexes.push(j.X, j.Y, j.Z)
@@ -69,7 +69,7 @@ function webGLStart() {
         for (let j of i){
             vertexes.push(j.X, j.Y, j.Z)
         }
-    }*/
+    }
 
 
 
