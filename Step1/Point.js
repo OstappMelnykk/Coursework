@@ -5,7 +5,7 @@ class Point{
 
     #InnerID
     #GeneralID
-    constructor(_InnerID, _GeneralID, x = 0.0, y = 0.0, z = 0.0) {
+    constructor(_InnerID = -1, _GeneralID = -1, x = 0.0, y = 0.0, z = 0.0) {
         this.#X_coordinate = parseFloat(x)
         this.#Y_coordinate = parseFloat(y)
         this.#Z_coordinate = parseFloat(z)

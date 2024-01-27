@@ -23,15 +23,17 @@ function webGLStart() {
     var u_Mmatrix = gl.getUniformLocation(shaderProgram, 'u_Mmatrix');
     var u_Vmatrix = gl.getUniformLocation(shaderProgram, 'u_Vmatrix');
 
-    let x = 0.0
 
-    let vertexes = []
 
-    for (i of pointsArray){
-        vertexes.push(i.X)
-        vertexes.push(i.Y)
-        vertexes.push(i.Z)
-    }
+    let cube = new Cube()
+    let supercube = new SuperCube([cube])
+
+    let vertexes = [... cube.GetAllVertexes()]
+    let indexes = [... cube.GetCubesIndexes()]
+
+
+
+    supercube.print()
 
     let indexBuffer = gl.createBuffer();
     gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, indexBuffer);
