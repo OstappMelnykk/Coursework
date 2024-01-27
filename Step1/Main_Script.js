@@ -42,34 +42,89 @@ function webGLStart() {
     supercube.print()*/
 
     //supercube.Super_DevideBy_X_axis(4)
-    let vertexes = [...cube.GetCubesVerteces_AsArray()]
 
-    let indexes = [...cube.Indices];
+    // let vertexes = [...cube.GetCubesVerteces_AsArray()]
+    //
+    // let indexes = [...cube.Indices];
 
 
 
-    for (let i of cube.DevideBy_X_axis(4))
+
+
+
+
+
+
+
+
+
+
+    let cubes = []
+
+    console.log(54)
+    for (let i of cube.DevideBy_X_axis(2))
     {
-        for (let j of i){
-            vertexes.push(j.X, j.Y, j.Z)
-        }
+        console.log(i)
+        cubes.push(new Cube(i))
     }
 
 
-    for (let i of cube.DevideBy_Y_axis(16))
+    for (let i of cube.DevideBy_Y_axis(2))
     {
-        for (let j of i){
-            vertexes.push(j.X, j.Y, j.Z)
-        }
+        console.log(i)
+        cubes.push(new Cube(i))
     }
 
-
-    for (let i of cube.DevideBy_Z_axis(64))
+    for (let i of cube.DevideBy_Z_axis(2))
     {
-        for (let j of i){
-            vertexes.push(j.X, j.Y, j.Z)
-        }
+        console.log(i)
+        cubes.push(new Cube(i))
     }
+
+    let _supercube = new SuperCube(cubes)
+
+
+    let vertexes = [..._supercube.GetAllVertexes_AsArray()]
+    let indexes = [..._supercube.GetAllIndexes()];
+
+
+    /*let indexes = [
+        0, 1, 1, 2, 2, 3, 3, 0,
+        0, 4,
+        1, 5,
+        2, 6,
+        3, 7,
+        4, 5, 5, 6, 6, 7, 7, 4,
+    ]*/
+
+
+
+
+
+
+
+
+    // for (let i of cube.DevideBy_X_axis(10))
+    // {
+    //     for (let j of i){
+    //         vertexes.push(j.X, j.Y, j.Z)
+    //     }
+    // }
+    //
+    //
+    // for (let i of cube.DevideBy_Y_axis(4))
+    // {
+    //     for (let j of i){
+    //         vertexes.push(j.X, j.Y, j.Z)
+    //     }
+    // }
+    //
+    // for (let i of cube.DevideBy_Z_axis(30))
+    // {
+    //     for (let j of i){
+    //         vertexes.push(j.X, j.Y, j.Z)
+    //     }
+    // }
 
 
 

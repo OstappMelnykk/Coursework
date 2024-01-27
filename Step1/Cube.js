@@ -34,18 +34,17 @@ class Cube {
 
 
         this.#Points = _Points;
+
         if (this.#Points.some(point => point.InnerID === -1)){
             for(let i =0; i < this.#Points.length; i++)
                 this.#Points[i].InnerID = i + 1
         }
-
 
         if (/*!this.#Points.some(point => point.InnerID === -1) && */this.#Points.length === 8 ) {
 
             this.#Points.sort((a, b) => {
                 return a.InnerID - b.InnerID;
             })
-
 
             let j = 9;
             for (let i = 0; i < this.#Indices.length; i += 2) {
@@ -93,9 +92,6 @@ class Cube {
 
                     this.#MiddleEdgesPoints.push(new Point(j, -1, point1.X, midY, point1.Z));
                 }
-
-
-
                 j++;
             }
             //console.log(this.#MiddleEdgesPoints)
@@ -224,8 +220,9 @@ class Cube {
             Squares.push([
                 new Point(-1, -1, -1, -1, new_Z_Points[i]),
                 new Point(-1, -1, 1, -1, new_Z_Points[i]),
-                new Point(-1, -1, -1, 1, new_Z_Points[i]),
                 new Point(-1, -1, 1, 1, new_Z_Points[i]),
+                new Point(-1, -1, -1, 1, new_Z_Points[i]),
+
             ])
         }
 
@@ -238,8 +235,8 @@ class Cube {
                 Squares[i][1],
                 Squares[i][0],
 
-                Squares[i + 1][2],
                 Squares[i + 1][3],
+                Squares[i + 1][2],
                 Squares[i][2],
                 Squares[i][3],
             ])
