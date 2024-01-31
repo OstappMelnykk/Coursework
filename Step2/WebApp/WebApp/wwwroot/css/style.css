@@ -1,0 +1,33 @@
+*{
+    margin: 0px;
+    padding: 0px;
+}
+
+.box{
+    display: flex;
+}
+form{
+    display: flex;
+    flex-direction: column;
+    min-width: 300px;
+    margin-left: 50px;
+    padding-top: 20px;
+    margin-right: 20px;
+
+}
+input{
+
+    height: 30px;
+    font-size: 20px;
+}
+label {
+    font-size: 30px;
+}
+
+button{
+    background-color: #1b6ec2;
+    height: 60px;
+    min-width: 300px;
+
+}
+
