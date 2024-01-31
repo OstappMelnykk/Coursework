@@ -15,11 +15,11 @@ function webGLStart() {
 
     var canvas = document.getElementById("canvasGL");
 
-    canvas.width = window.innerWidth;
+    canvas.width = window.innerWidth - 370;
     canvas.height = window.innerHeight;
 
     window.addEventListener('resize', function() {
-        canvas.width = window.innerWidth;
+        canvas.width = window.innerWidth - 370;
         canvas.height = window.innerHeight;
     });
 
@@ -36,7 +36,6 @@ function webGLStart() {
     var u_Mmatrix = gl.getUniformLocation(shaderProgram, 'u_Mmatrix');
     var u_Vmatrix = gl.getUniformLocation(shaderProgram, 'u_Vmatrix');
 
-
     //======================================================================================================================
     //======================================================================================================================
     //======================================================================================================================
@@ -44,87 +43,20 @@ function webGLStart() {
 
 
 
+    let superSube = new SuperCube()
 
 
-    let cube = new Cube();
+    let tupple = superSube.Devide(ValueX, ValueY, ValueZ)
+/*
+    tupple =  [
+        [...vertexes_With_MiddleVertexes],
+        [...vertexes],
+        [...indexes],
+    ]
+*/
 
-
-
-
-
-
-    let cubes = []
-
-    for (let XcubeI of (new Cube()).DevideBy_X_axis(ValueX)){
-        for (let YcubeI of (new Cube(XcubeI)).DevideBy_Y_axis(ValueY)){
-            for (let ZcubeI of (new Cube(YcubeI)).DevideBy_Z_axis(ValueZ)){
-                cubes.push(new Cube(ZcubeI))
-            }
-        }
-    }
-
-
-    /*let cube1 = new Cube(cube.DevideBy_X_axis(2)[0])
-
-
-    //cube1.print("xxx")
-
-
-    for (let XcubeI of cube1.DevideBy_Y_axis(5)){
-        cubes.push(new Cube(XcubeI))
-    }*/
-
-
-    //
-    // for (let i of cube.DevideBy_X_axis(2))
-    // {
-    //     console.log(i)
-    //     cubes.push(new Cube(i))
-    // }
-    //
-    // for (let i of cube.DevideBy_Y_axis(2))
-    // {
-    //     console.log(i)
-    //     cubes.push(new Cube(i))
-    // }
-    //
-    // for (let i of cube.DevideBy_Z_axis(2))
-    // {
-    //     console.log(i)
-    //     cubes.push(new Cube([...i]))
-    // }
-    //
-
-    let _supercube = new SuperCube(cubes)
-
-
-
-    _supercube.print()
-
-
-
-
-    let vertexes = [..._supercube.GetAllVertexes_AsArray()]
-    for (let i of cubes){
-        vertexes.push(...i.GetCubesMiddleEdgesPoints_AsArray())
-    }
-    let indexes = [..._supercube.GetAllIndexes()];
-
-
-    //console.log(vertexes)
-
-
-
-
-
-
-
-
-
-
-
-
-
+    let vertexes = tupple[0]
+    let indexes = tupple[2]
 
 
     //======================================================================================================================
@@ -150,7 +82,7 @@ function webGLStart() {
     mat4.identity(MODELMATRIX);
     mat4.identity(VIEWMATRIX);
 
-    mat4.translate(VIEWMATRIX, [0.0, 0.0, -5.0]);
+    mat4.translate(VIEWMATRIX, [0.0, 0.0, -5.4]);
     mat4.translate(MODELMATRIX, [0.0, 0.0, 0.0]);
     mat4.scale(MODELMATRIX, [1.0, 1.0, 1.0]);
     mat4.rotateX(MODELMATRIX, 10);

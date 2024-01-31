@@ -1,26 +1,49 @@
 class SuperCube {
+    #InitialCube
     #Cubes;
-    constructor(_Cubes = [new Cube()]) {
-        this.#Cubes = [..._Cubes];
-
-        // for (let i of this.#Cubes){
-        //     i.set_innerIds()
-        // }
+    constructor(_InitialCube = new Cube()) {
+        this.#InitialCube = _InitialCube
     }
 
-    GetAllVertexes_AsArray(){
+    Devide(num_X, num_Y, num_Z){
+
+        let cubes = []
+
+        for (let XcubeI of this.#InitialCube.DevideBy_X_axis(num_X)) {
+            for (let YcubeI of (new Cube(XcubeI)).DevideBy_Y_axis(num_Y)) {
+                for (let ZcubeI of (new Cube(YcubeI)).DevideBy_Z_axis(num_Z)) {
+                    cubes.push(new Cube(ZcubeI))
+                }
+            }
+        }
+
+        this.#Cubes = [...cubes]
+
+        let vertexes = this.getAllPointsOfAllCubesAs_xyz()
+
+        let vertexes_With_MiddleVertexes = [...vertexes]
+        for (let cube of this.#Cubes) vertexes_With_MiddleVertexes.push(...cube.getMiddlePointsAs_xyz())
+
+        let indexes = this.getConnectionInnerIndexesForEveryCube();
+
+        return [
+            [...vertexes_With_MiddleVertexes],
+            [...vertexes],
+            [...indexes],
+        ];
+    };
+
+    getAllPointsOfAllCubesAs_xyz(){
 
         let result = [];
         for (let i = 0; i < this.#Cubes.length; i++) {
-            result.push(...this.#Cubes[i].GetCubesVerteces_AsArray());
+            result.push(...this.#Cubes[i].getPointsAs_xyz());
         }
 
         return result;
-
-
     }
 
-    GetAllIndexes() {
+    getConnectionInnerIndexesForEveryCube() {
         const indices = [
             0, 1, 1, 2, 2, 3, 3, 0, 0, 4, 1, 5,
             2, 6, 3, 7, 4, 5, 5, 6, 6, 7, 7, 4,
@@ -38,6 +61,20 @@ class SuperCube {
     }
 
 
+    get InitialCube() {
+        return this.#InitialCube
+    }
+    set InitialCube(_InitialCube) {
+        this.#InitialCube = _InitialCube
+    }
+
+    get Cubes() {
+        return this.#Cubes
+    }
+    set Cubes(_Cubes) {
+        this.#Cubes = _Cubes
+    }
+
     print() {
         console.log("SuperCube:");
         let i = 1;
@@ -48,41 +85,4 @@ class SuperCube {
             i++;
         }
     }
-
-/*
-
-    Super_DevideBy_X_axis(number, indexOfCube = 0){
-
-        for (let i of this.#Cubes[0].DevideBy_X_axis(4))
-        {
-            for (let j of i){
-                console.log(j)
-            }
-        }
-
-
-
-        // this.#Cubes[0].DevideBy_X_axis(3)
-        //
-        // for (let i of this.#Cubes[indexOfCube].DevideBy_X_axis(number)){
-        //     this.#Cubes.push(new Cube(i))
-        // }
-        // this.#Cubes.splice(indexOfCube, 1);
-    }
-    Super_DevideBy_Y_axis(number, indexOfCube = 0){
-        for (let i of this.#Cubes[indexOfCube].DevideBy_Y_axis(number)){
-            this.#Cubes.push(new Cube(i))
-        }
-        this.#Cubes.splice(indexOfCube, 1);
-    }
-    Super_DevideBy_Z_axis(number, indexOfCube = 0){
-        for (let i of this.#Cubes[indexOfCube].DevideBy_Z_axis(number)){
-            this.#Cubes.push(new Cube(i))
-        }
-        this.#Cubes.splice(indexOfCube, 1);
-    }
-
-
-*/
-
 }
