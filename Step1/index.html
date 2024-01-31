@@ -7,7 +7,16 @@
 
 </head>
 <body>
-    <canvas id="canvasGL"></canvas>
+    <div class="box">
+        <form id="myForm">
+            <input type="number" id="input1" value="2">
+            <input type="number" id="input2" value="2">
+            <input type="number" id="input3" value="2">
+            <button type="button" onclick="getData()">Отримати дані</button>
+        </form>
+        <canvas id="canvasGL"></canvas>
+    </div>
+
 
     <script type="text/javascript" src="glMatrix-0.9.5.js"></script>
     <script type="text/javascript" src="Vertext_Shader_Code.js"></script>

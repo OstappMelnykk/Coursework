@@ -17,7 +17,7 @@ class Point{
     set InnerID(InnerID){ this.#InnerID= InnerID; }
     get InnerID(){ return this.#InnerID; }
 
-    set GeneralID(GeneralID){ this.#GeneralID= GeneralID; }
+    set GeneralID(GeneralID){ this.#GeneralID = GeneralID; }
     get GeneralID(){ return this.#GeneralID; }
 
 
@@ -32,7 +32,6 @@ class Point{
     get Z(){ return this.#Z_coordinate; }
 
     print(){
-        console.log(`(X, Y, Z) = (${this.#X_coordinate}, ${this.#Y_coordinate}, ${this.#Z_coordinate})`);
-        console.log(`GeneralID: ${this.#GeneralID},\nInnerID: ${this.#InnerID}`);
+        console.log(`(X, Y, Z) = (${this.#X_coordinate}, ${this.#Y_coordinate}, ${this.#Z_coordinate}) ---   ${ this.#InnerID}`);
     }
 }

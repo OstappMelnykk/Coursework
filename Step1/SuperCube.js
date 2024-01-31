@@ -1,7 +1,11 @@
 class SuperCube {
     #Cubes;
     constructor(_Cubes = [new Cube()]) {
-        this.#Cubes = _Cubes;
+        this.#Cubes = [..._Cubes];
+
+        // for (let i of this.#Cubes){
+        //     i.set_innerIds()
+        // }
     }
 
     GetAllVertexes_AsArray(){
@@ -10,42 +14,42 @@ class SuperCube {
         for (let i = 0; i < this.#Cubes.length; i++) {
             result.push(...this.#Cubes[i].GetCubesVerteces_AsArray());
         }
+
         return result;
+
+
     }
 
-    GetAllIndexes(){
-        let AllIndexes = []
+    GetAllIndexes() {
+        const indices = [
+            0, 1, 1, 2, 2, 3, 3, 0, 0, 4, 1, 5,
+            2, 6, 3, 7, 4, 5, 5, 6, 6, 7, 7, 4,
+        ];
 
-        let indices = [
-            0, 1, 1, 2, 2, 3, 3, 0,
-            0, 4,
-            1, 5,
-            2, 6,
-            3, 7,
-            4, 5, 5, 6, 6, 7, 7, 4,
-        ]
+        let newIndexes = [];
 
-        let newIndexes = []
-
-        for (let i = 0; i < this.#Cubes.length; i++){
-
-            let New_indices = []
-            let PlusVal = 8 * i
-            for (let j = 0; j < indices.length; j ++){
-                New_indices[j] = indices[j] + PlusVal;
-            }
-
-            newIndexes = [...newIndexes, ...New_indices]
-
-
-
+        for (let i = 0; i < this.#Cubes.length; i++) {
+            const plusVal = 8 * i;
+            const currentIndices = indices.map(index => index + plusVal);
+            newIndexes.push(...currentIndices);
         }
 
-        return newIndexes
-
+        return newIndexes;
     }
 
 
+    print() {
+        console.log("SuperCube:");
+        let i = 1;
+        for (const cube of this.#Cubes) {
+            console.log(i)
+            cube.print();
+            console.log("\n\n")
+            i++;
+        }
+    }
+
+/*
 
     Super_DevideBy_X_axis(number, indexOfCube = 0){
 
@@ -79,17 +83,6 @@ class SuperCube {
     }
 
 
-
-
-
-    print() {
-        console.log("SuperCube:");
-        for (const cube of this.#Cubes) {
-            cube.print();
-        }
-    }
-
-
-
+*/
 
 }

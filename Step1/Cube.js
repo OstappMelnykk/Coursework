@@ -9,7 +9,6 @@ class Cube {
         3, 7,
         4, 5, 5, 6, 6, 7, 7, 4,
     ]
-
     #MiddleEdgesPoints = []
 
     #MinX
@@ -20,27 +19,34 @@ class Cube {
     #MaxY
     #MaxZ
 
-    constructor(_Points = [
-        new Point(1, -1, -1, -1, 1),
-        new Point(2, -1, 1, -1, 1),
-        new Point(3, -1, 1, -1, -1),
-        new Point(4, -1, -1, -1, -1),
+    constructor(
+        _Points = [
+                        new Point(-1, -1, -1, -1, 1),
+                        new Point(-1, -1, 1, -1, 1),
+                        new Point(-1, -1, 1, -1, -1),
+                        new Point(-1, -1, -1, -1, -1),
 
-        new Point(5, -1, -1, 1, 1),
-        new Point(6, -1, 1, 1, 1),
-        new Point(7, -1, 1, 1, -1),
-        new Point(8, -1, -1, 1, -1),
-    ]) {
-
+                        new Point(-1, -1, -1, 1, 1),
+                        new Point(-1, -1, 1, 1, 1),
+                        new Point(-1, -1, 1, 1, -1),
+                        new Point(-1, -1, -1, 1, -1),
+                    ])
+    {
 
         this.#Points = _Points;
 
+        //задаємо значення індексам (InnerID) оскільки вони всі -1
         if (this.#Points.some(point => point.InnerID === -1)){
-            for(let i =0; i < this.#Points.length; i++)
-                this.#Points[i].InnerID = i + 1
+            let j = 1
+            for(let i = 0; i < this.#Points.length; i++) {
+                this.#Points[i].InnerID = j
+                j++;
+            }
         }
 
-        if (/*!this.#Points.some(point => point.InnerID === -1) && */this.#Points.length === 8 ) {
+        //коли ми же маємо точки для побудовти куба, ми шукаємо серединні точки на кожній із граней,
+        // цим точками даємо координати, індекси(InnerID) і кладемо їх всіх в масив MiddleEdgesPoints
+        if (this.#Points.length === 8 ) {
 
             this.#Points.sort((a, b) => {
                 return a.InnerID - b.InnerID;
@@ -111,7 +117,21 @@ class Cube {
         }
     }
 
+    set_innerIds(){
+        let j = 1
+        for(let i = 0; i < this.#Points.length; i++) {
+            this.#Points[i].InnerID = j
+            j++;
+        }
+    }
+
+    //функція CalcNewPoints робиває відрізок a1a2 на задану кількість(num) частин
+    // і повертає масив із точками на відрізку (num - 1 штука)
     CalcNewPoints(a1, a2, num) {
+        if (num === 0){
+            return []
+        }
+
         let newPointsArray = [];
         let numSegments = num;
 
@@ -132,57 +152,104 @@ class Cube {
         let x1 = this.#MinX
         let x2 = this.#MaxX
 
+        let y1 = this.#MinY
+        let y2 = this.#MaxY
+
+        let z1 = this.#MinZ
+        let z2 = this.#MaxZ
+
+
+
+
         let new_X_Points = [x1, ... this.CalcNewPoints(x1, x2, number), x2]
 
+        //утворення квадратів за допомогою 4-ох точок  які розатшовані відповідно до знайдених точок поділу
         let Squares = []
 
-        for (let i = 0; i < number + 1; i++){
+        /*for (let i = 0; i < number + 1; i++){
             Squares.push([
                 new Point(-1, -1, new_X_Points[i], -1, 1),
                 new Point(-1, -1, new_X_Points[i], -1, -1),
                 new Point(-1, -1, new_X_Points[i], 1, 1),
                 new Point(-1, -1, new_X_Points[i], 1, -1),
             ])
-        }
+        }*/
 
-        let cubes = []
-        for (let i = 0; i < number; i++){
-            cubes.push([
-                Squares[i][0],
-                Squares[i + 1][0],
-                Squares[i + 1][1],
-                Squares[i][1],
 
-                Squares[i][2],
-                Squares[i + 1][2],
-                Squares[i + 1][3],
-                Squares[i][3],
+        for (let i = 0; i < number + 1; i++){
+            Squares.push([
+                new Point(-1, -1, new_X_Points[i], y1, z2),
+                new Point(-1, -1, new_X_Points[i], y1, z1),
+                new Point(-1, -1, new_X_Points[i], y2, z2),
+                new Point(-1, -1, new_X_Points[i], y2, z1),
             ])
         }
 
 
-       return cubes
-    }
 
+
+        let cubes = []
+
+        for (let i = 0; i < number; i++){
+            cubes.push([
+                new Point(Squares[i][0].InnerID, Squares[i][0].GeneralID, Squares[i][0].X, Squares[i][0].Y, Squares[i][0].Z),
+                new Point(Squares[i + 1][0].InnerID, Squares[i + 1][0].GeneralID, Squares[i + 1][0].X, Squares[i + 1][0].Y, Squares[i + 1][0].Z),
+                new Point(Squares[i + 1][1].InnerID, Squares[i + 1][1].GeneralID, Squares[i + 1][1].X, Squares[i + 1][1].Y, Squares[i + 1][1].Z),
+                new Point(Squares[i][1].InnerID, Squares[i][1].GeneralID, Squares[i][1].X, Squares[i][1].Y, Squares[i][1].Z),
+                new Point(Squares[i][2].InnerID, Squares[i][2].GeneralID, Squares[i][2].X, Squares[i][2].Y, Squares[i][2].Z),
+                new Point(Squares[i + 1][2].InnerID, Squares[i + 1][2].GeneralID, Squares[i + 1][2].X, Squares[i + 1][2].Y, Squares[i + 1][2].Z),
+                new Point(Squares[i + 1][3].InnerID, Squares[i + 1][3].GeneralID, Squares[i + 1][3].X, Squares[i + 1][3].Y, Squares[i + 1][3].Z),
+                new Point(Squares[i][3].InnerID, Squares[i][3].GeneralID, Squares[i][3].X, Squares[i][3].Y, Squares[i][3].Z),
+
+               /* Squares[i][0],
+                Squares[i + 1][0],
+                Squares[i + 1][1],
+                Squares[i][1],
+                Squares[i][2],
+                Squares[i + 1][2],
+                Squares[i + 1][3],
+                Squares[i][3],*/
+            ])
+
+        }
+
+
+        return cubes
+    }
 
 
 
 
     DevideBy_Y_axis(number){
 
+        let x1 = this.#MinX
+        let x2 = this.#MaxX
+
         let y1 = this.#MinY
         let y2 = this.#MaxY
+
+        let z1 = this.#MinZ
+        let z2 = this.#MaxZ
 
         let new_Y_Points = [y1, ... this.CalcNewPoints(y1, y2, number), y2]
 
         let Squares = []
 
-        for (let i = 0; i < number + 1; i++){
+        /*for (let i = 0; i < number + 1; i++){
             Squares.push([
                 new Point(-1, -1, -1, new_Y_Points[i], 1),
                 new Point(-1, -1, 1, new_Y_Points[i], 1),
                 new Point(-1, -1, 1, new_Y_Points[i], -1),
                 new Point(-1, -1, -1, new_Y_Points[i], -1),
+            ])
+        }*/
+
+        for (let i = 0; i < number + 1; i++){
+            Squares.push([
+                new Point(-1, -1, x1, new_Y_Points[i], z2),
+                new Point(-1, -1, x2, new_Y_Points[i], z2),
+                new Point(-1, -1, x2, new_Y_Points[i], z1),
+                new Point(-1, -1, x1, new_Y_Points[i], z1),
             ])
         }
 
@@ -190,7 +257,18 @@ class Cube {
         let cubes = []
         for (let i = 0; i < number; i++){
             cubes.push([
-                Squares[i][0],
+                new Point(Squares[i][0].InnerID, Squares[i][0].GeneralID, Squares[i][0].X, Squares[i][0].Y, Squares[i][0].Z),
+                new Point(Squares[i][1].InnerID, Squares[i][1].GeneralID, Squares[i][1].X, Squares[i][1].Y, Squares[i][1].Z),
+                new Point(Squares[i][2].InnerID, Squares[i][2].GeneralID, Squares[i][2].X, Squares[i][2].Y, Squares[i][2].Z),
+                new Point(Squares[i][3].InnerID, Squares[i][3].GeneralID, Squares[i][3].X, Squares[i][3].Y, Squares[i][3].Z),
+
+                new Point(Squares[i + 1][0].InnerID, Squares[i + 1][0].GeneralID, Squares[i + 1][0].X, Squares[i + 1][0].Y, Squares[i + 1][0].Z),
+                new Point(Squares[i + 1][1].InnerID, Squares[i + 1][1].GeneralID, Squares[i + 1][1].X, Squares[i + 1][1].Y, Squares[i + 1][1].Z),
+                new Point(Squares[i + 1][2].InnerID, Squares[i + 1][2].GeneralID, Squares[i + 1][2].X, Squares[i + 1][2].Y, Squares[i + 1][2].Z),
+                new Point(Squares[i + 1][3].InnerID, Squares[i + 1][3].GeneralID, Squares[i + 1][3].X, Squares[i + 1][3].Y, Squares[i + 1][3].Z),
+
+
+                /*Squares[i][0],
                 Squares[i][1],
                 Squares[i][2],
                 Squares[i][3],
@@ -198,7 +276,7 @@ class Cube {
                 Squares[i + 1][0],
                 Squares[i + 1][1],
                 Squares[i + 1][2],
-                Squares[i + 1][3],
+                Squares[i + 1][3],*/
             ])
         }
 
@@ -209,19 +287,35 @@ class Cube {
 
     DevideBy_Z_axis(number){
 
-        let z1 = this.#MinY
-        let z2 = this.#MaxY
+        let x1 = this.#MinX
+        let x2 = this.#MaxX
+
+        let y1 = this.#MinY
+        let y2 = this.#MaxY
+
+        let z1 = this.#MinZ
+        let z2 = this.#MaxZ
 
         let new_Z_Points = [z1, ... this.CalcNewPoints(z1, z2, number), z2]
 
         let Squares = []
 
-        for (let i = 0; i < number + 1; i++){
+        /*for (let i = 0; i < number + 1; i++){
             Squares.push([
                 new Point(-1, -1, -1, -1, new_Z_Points[i]),
                 new Point(-1, -1, 1, -1, new_Z_Points[i]),
                 new Point(-1, -1, 1, 1, new_Z_Points[i]),
                 new Point(-1, -1, -1, 1, new_Z_Points[i]),
+
+            ])
+        }*/
+
+        for (let i = 0; i < number + 1; i++){
+            Squares.push([
+                new Point(-1, -1, x1, y1, new_Z_Points[i]),
+                new Point(-1, -1, x2, y1, new_Z_Points[i]),
+                new Point(-1, -1, x2, y2, new_Z_Points[i]),
+                new Point(-1, -1, x1, y2, new_Z_Points[i]),
 
             ])
         }
@@ -230,7 +324,19 @@ class Cube {
         let cubes = []
         for (let i = 0; i < number; i++){
             cubes.push([
-                Squares[i + 1][0],
+
+                new Point(Squares[i + 1][0].InnerID, Squares[i + 1][0].GeneralID, Squares[i + 1][0].X, Squares[i + 1][0].Y, Squares[i + 1][0].Z),
+                new Point(Squares[i + 1][1].InnerID, Squares[i + 1][1].GeneralID, Squares[i + 1][1].X, Squares[i + 1][1].Y, Squares[i + 1][1].Z),
+                new Point(Squares[i][1].InnerID, Squares[i][1].GeneralID, Squares[i][1].X, Squares[i][1].Y, Squares[i][1].Z),
+                new Point(Squares[i][0].InnerID, Squares[i][0].GeneralID, Squares[i][0].X, Squares[i][0].Y, Squares[i][0].Z),
+
+                new Point(Squares[i + 1][3].InnerID, Squares[i + 1][3].GeneralID, Squares[i + 1][3].X, Squares[i + 1][3].Y, Squares[i + 1][3].Z),
+                new Point(Squares[i + 1][2].InnerID, Squares[i + 1][2].GeneralID, Squares[i + 1][2].X, Squares[i + 1][2].Y, Squares[i + 1][2].Z),
+                new Point(Squares[i][2].InnerID, Squares[i][2].GeneralID, Squares[i][2].X, Squares[i][2].Y, Squares[i][2].Z),
+                new Point(Squares[i][3].InnerID, Squares[i][3].GeneralID, Squares[i][3].X, Squares[i][3].Y, Squares[i][3].Z),
+
+
+                /*Squares[i + 1][0],
                 Squares[i + 1][1],
                 Squares[i][1],
                 Squares[i][0],
@@ -238,7 +344,7 @@ class Cube {
                 Squares[i + 1][3],
                 Squares[i + 1][2],
                 Squares[i][2],
-                Squares[i][3],
+                Squares[i][3],*/
             ])
         }
 
@@ -313,11 +419,9 @@ class Cube {
     get MinX(){
         return this.#MinX
     }
-
     get MinY(){
         return this.#MinY
     }
-
     get MinZ(){
         return this.#MinZ
     }
@@ -326,15 +430,12 @@ class Cube {
     get MaxX(){
         return this.#MaxX
     }
-
     get MaxY(){
         return this.#MaxY
     }
-
     get MaxZ(){
         return this.#MaxZ
     }
-
 
 
     print() {
@@ -344,3 +445,7 @@ class Cube {
         }
     }
 }
+
+
+
+

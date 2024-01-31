@@ -1,3 +1,16 @@
+let ValueX = 2
+let ValueY = 2
+let ValueZ = 2
+
+
+function getData() {
+    ValueX = document.getElementById('input1').value;
+    ValueY = document.getElementById('input2').value;
+    ValueZ = document.getElementById('input3').value;
+
+    webGLStart()
+}
+
 function webGLStart() {
 
     var canvas = document.getElementById("canvasGL");
@@ -34,25 +47,6 @@ function webGLStart() {
 
 
     let cube = new Cube();
-    //let supercube = new SuperCube(cube)
-
-    //cube.DevideBy_X_axis(3)
-    /*supercube.Super_DevideBy_X_axis(5)
-
-    supercube.print()*/
-
-    //supercube.Super_DevideBy_X_axis(4)
-
-    // let vertexes = [...cube.GetCubesVerteces_AsArray()]
-    //
-    // let indexes = [...cube.Indices];
-
-
-
-
-
-
-
 
 
 
@@ -61,41 +55,63 @@ function webGLStart() {
 
     let cubes = []
 
-    console.log(54)
-    for (let i of cube.DevideBy_X_axis(2))
-    {
-        console.log(i)
-        cubes.push(new Cube(i))
+    for (let XcubeI of (new Cube()).DevideBy_X_axis(ValueX)){
+        for (let YcubeI of (new Cube(XcubeI)).DevideBy_Y_axis(ValueY)){
+            for (let ZcubeI of (new Cube(YcubeI)).DevideBy_Z_axis(ValueZ)){
+                cubes.push(new Cube(ZcubeI))
+            }
+        }
     }
 
 
-    for (let i of cube.DevideBy_Y_axis(2))
-    {
-        console.log(i)
-        cubes.push(new Cube(i))
-    }
+    /*let cube1 = new Cube(cube.DevideBy_X_axis(2)[0])
 
-    for (let i of cube.DevideBy_Z_axis(2))
-    {
-        console.log(i)
-        cubes.push(new Cube(i))
-    }
+
+    //cube1.print("xxx")
+
+
+    for (let XcubeI of cube1.DevideBy_Y_axis(5)){
+        cubes.push(new Cube(XcubeI))
+    }*/
+
+
+    //
+    // for (let i of cube.DevideBy_X_axis(2))
+    // {
+    //     console.log(i)
+    //     cubes.push(new Cube(i))
+    // }
+    //
+    // for (let i of cube.DevideBy_Y_axis(2))
+    // {
+    //     console.log(i)
+    //     cubes.push(new Cube(i))
+    // }
+    //
+    // for (let i of cube.DevideBy_Z_axis(2))
+    // {
+    //     console.log(i)
+    //     cubes.push(new Cube([...i]))
+    // }
+    //
 
     let _supercube = new SuperCube(cubes)
 
 
+
+    _supercube.print()
+
+
+
+
     let vertexes = [..._supercube.GetAllVertexes_AsArray()]
+    for (let i of cubes){
+        vertexes.push(...i.GetCubesMiddleEdgesPoints_AsArray())
+    }
     let indexes = [..._supercube.GetAllIndexes()];
 
 
-    /*let indexes = [
-        0, 1, 1, 2, 2, 3, 3, 0,
-        0, 4,
-        1, 5,
-        2, 6,
-        3, 7,
-        4, 5, 5, 6, 6, 7, 7, 4,
-    ]*/
+    //console.log(vertexes)
 
 
 
@@ -104,27 +120,10 @@ function webGLStart() {
 
 
 
-    // for (let i of cube.DevideBy_X_axis(10))
-    // {
-    //     for (let j of i){
-    //         vertexes.push(j.X, j.Y, j.Z)
-    //     }
-    // }
-    //
-    //
-    // for (let i of cube.DevideBy_Y_axis(4))
-    // {
-    //     for (let j of i){
-    //         vertexes.push(j.X, j.Y, j.Z)
-    //     }
-    // }
-    //
-    // for (let i of cube.DevideBy_Z_axis(30))
-    // {
-    //     for (let j of i){
-    //         vertexes.push(j.X, j.Y, j.Z)
-    //     }
-    // }
+
+
+
+
 
 
 
@@ -211,6 +210,7 @@ function webGLStart() {
 
     gl.clearColor(0.5, 0.5, 0.5, 1.0);
     gl.clear(gl.COLOR_BUFFER_BIT);
+
     gl.drawElements(gl.LINES, indexes.length, gl.UNSIGNED_SHORT, 0);
     gl.flush();
 }
