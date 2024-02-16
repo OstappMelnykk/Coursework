@@ -98,7 +98,7 @@ function webGLStart() {
 
     gl.vertexAttribPointer(positionAttrib, 3, gl.FLOAT, false, 0, 0);
 
-    gl.clearColor(0.5, 0.5, 0.5, 1.0);
+    gl.clearColor(0.1176, 0.1216, 0.1333, 1.0);
     gl.clear(gl.COLOR_BUFFER_BIT);
 
     var isDragging = false;
@@ -129,7 +129,7 @@ function webGLStart() {
         mat4.rotateY(MODELMATRIX, -angle * deltaX);
         mat4.rotateZ(MODELMATRIX, -angle * deltaY);
 
-        gl.clearColor(0.5, 0.5, 0.5, 1.0);
+        gl.clearColor(0.1176, 0.1216, 0.1333, 1.0);
         gl.clear(gl.COLOR_BUFFER_BIT);
 
         gl.uniformMatrix4fv(u_Mmatrix, false, MODELMATRIX);
@@ -140,7 +140,7 @@ function webGLStart() {
         gl.flush();
     });
 
-    gl.clearColor(0.5, 0.5, 0.5, 1.0);
+    gl.clearColor(0.1176, 0.1216, 0.1333, 1.0);
     gl.clear(gl.COLOR_BUFFER_BIT);
 
     gl.drawElements(gl.LINES, indexes.length, gl.UNSIGNED_SHORT, 0);

@@ -11,15 +11,17 @@ function getData() {
     webGLStart()
 }
 
+
 function webGLStart() {
+
 
     var canvas = document.getElementById("canvasGL");
 
-    canvas.width = window.innerWidth - 370;
+    canvas.width = window.innerWidth - 270;
     canvas.height = window.innerHeight;
 
     window.addEventListener('resize', function() {
-        canvas.width = window.innerWidth - 370;
+        canvas.width = window.innerWidth - 270;
         canvas.height = window.innerHeight;
     });
 
@@ -42,22 +44,34 @@ function webGLStart() {
     //======================================================================================================================
 
 
+    /*let cube = new Cube()
+    let tupple = cube.drawingTool()
 
-    let superSube = new SuperCube()
+    let vertexes = tupple[2]
+    let indexes = tupple[3]*/
+    let scube = new SuperCube()
 
+    let arrayOfData = scube.Devide(ValueX, ValueY, ValueZ)
 
-    let tupple = superSube.Devide(ValueX, ValueY, ValueZ)
+    let vertexes = arrayOfData[2]
+    let indexes = arrayOfData[3]
+
+    //scube.print()
+
+    let AKT = scube.cretae_AKT_array()
+    let NT = scube.cretae_NT_array()
+
 /*
-    tupple =  [
-        [...vertexes_With_MiddleVertexes],
-        [...vertexes],
-        [...indexes],
-    ]
-*/
+    var printcoords = document.getElementById("printcoords");
 
-    let vertexes = tupple[0]
-    let indexes = tupple[2]
+    printcoords.innerHTML = `${[...AKT]}`;*/
+    console.clear();
 
+    console.log(AKT)
+    console.log(NT)
+
+    /*let vertexes = []
+    let indexes = []*/
 
     //======================================================================================================================
     //======================================================================================================================
@@ -129,8 +143,9 @@ function webGLStart() {
         mat4.rotateY(MODELMATRIX, -angle * deltaX);
         mat4.rotateZ(MODELMATRIX, -angle * deltaY);
 
-        gl.clearColor(0.5, 0.5, 0.5, 1.0);
+        gl.clearColor(0.1176, 0.1216, 0.1333, 1.0);
         gl.clear(gl.COLOR_BUFFER_BIT);
+
 
         gl.uniformMatrix4fv(u_Mmatrix, false, MODELMATRIX);
         gl.vertexAttribPointer(positionAttrib, 3, gl.FLOAT, false, 0, 0);
@@ -138,9 +153,17 @@ function webGLStart() {
         gl.drawElements(gl.LINES, indexes.length, gl.UNSIGNED_SHORT, 0);
         gl.drawArrays(gl.POINTS, 0, vertexes.length);
         gl.flush();
+
+
+        ///////////////////
+        //console.clear();
+        ///////////////////////////
+
+
+
     });
 
-    gl.clearColor(0.5, 0.5, 0.5, 1.0);
+    gl.clearColor(0.1176, 0.1216, 0.1333, 1.0);
     gl.clear(gl.COLOR_BUFFER_BIT);
 
     gl.drawElements(gl.LINES, indexes.length, gl.UNSIGNED_SHORT, 0);

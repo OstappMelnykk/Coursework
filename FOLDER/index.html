@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="style.css">
+
+</head>
+<body>
+    <div class="box">
+        <form id="myForm">
+            <label>X: </label>
+            <input type="number" id="input1" value="2"><br>
+
+            <label>Y: </label>
+            <input type="number" id="input2" value="2"><br>
+
+            <label>Z: </label>
+            <input type="number" id="input3" value="2"><br>
+
+            <button type="button" onclick="getData()">Отримати дані</button>
+        </form>
+        <div class="innerbox">
+            <canvas id="canvasGL"></canvas>
+            <div id="printcoords"></div>
+        </div>
+
+
+    </div>
+
+
+    <script type="text/javascript" src="glMatrix-0.9.5.js"></script>
+    <script type="text/javascript" src="Vertext_Shader_Code.js"></script>
+    <script type="text/javascript" src="Fragment_Shader_Code.js"></script>
+    <script type="text/javascript" src="InitShaders.js"></script>
+    <!--<script type="text/javascript" src="Point.js"></script>
+    <script type="text/javascript" src=" Cube.js"></script>-->
+    <script type="text/javascript" src="PointsArray.js"></script>
+    <!--<script type="text/javascript" src=" SuperCube.js"></script>-->
+    <script type="text/javascript" src="Classes\Point.js"></script>
+    <script type="text/javascript" src="Classes\Cube.js"></script>
+    <script type="text/javascript" src="Classes\SuperCube.js"></script>
+
+    <script type="text/javascript" src="Main_Script.js"></script>
+
+
+    <script>
+        alert("Hello woeld")
+    </script>
+
+
+</body>
+</html>
