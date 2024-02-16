@@ -1,0 +1,49 @@
+*{
+    margin: 0px;
+    padding: 0px;
+}
+
+.box{
+    display: flex;
+}
+form{
+    display: flex;
+    flex-direction: column;
+    min-width: 200px;
+    margin-right: 50px;
+    padding-top: 20px;
+    margin-left: 20px;
+}
+input{
+
+    height: 30px;
+    font-size: 20px;
+}
+label {
+    font-size: 30px;
+}
+
+#update{
+    background-color: #1b6ec2;
+    height: 60px;
+    min-width: 200px;
+
+}
+
+/*
+innerbox{
+    display: flex;
+    flex-direction: column;
+}
+
+#printcoords{
+    max-height: 100%;
+    max-width: 100%;
+}
+*/
+
+
+
+
+
+

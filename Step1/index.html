@@ -5,27 +5,60 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <title>CourseWork</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 
 <body onload="webGLStart();">
 
-    <canvas id="canvasGL" style="border: solid;" width="400" height="400"></canvas>                                                             <br/><br/>
+    <!--<canvas id="canvasGL" style="border: solid;" width="400" height="400"></canvas>                                                                                                                                                 <br/><br/>
 
-    <td>X: <input type="number" id="Value_X" value="2">                                                                                         <br/>
-    <td>Y: <input type="number" id="Value_Y" value="2">                                                                                         <br/>
-    <td>Z: <input type="number" id="Value_Z" value="2">                                                                                         <br/><br/>
+    <td>X: <input type="number" id="Value_X" value="2">                                                                                                                                                                  <br/>
+    <td>Y: <input type="number" id="Value_Y" value="2">                                                                                                                                                                  <br/>
+    <td>Z: <input type="number" id="Value_Z" value="2">                                                                                                                                                                  <br/><br/>
     <input type="button" id="update" name="Update" value="Update" />
 
+-->
 
 
-    <script type="text/javascript" src="initShaders\_GLSL_shaderText.js"></script>
+    <div class="box">
+        <form id="myForm">
+            <label>X: </label>
+            <input type="number" id="Value_X" value="2"><br>
+
+            <label>Y: </label>
+            <input type="number" id="Value_Y" value="2"><br>
+
+            <label>Z: </label>
+            <input type="number" id="Value_Z" value="2"><br>
+
+            <input type="button" id="update" name="Update" value="Update" />
+        </form>
+        <div class="innerbox">
+            <canvas id="canvasGL"></canvas>
+            <!--<div id="printcoords"></div>-->
+        </div>
+
+
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+        <script type="text/javascript" src="initShaders\_GLSL_shaderText.js"></script>
     <script type="text/javascript" src="initShaders\getShader.js"></script>
     <script type="text/javascript" src="initShaders\getProgram.js"></script>
     <script type="text/javascript" src="initShaders\createDomShaderProgram.js"></script>
 
     <script type="text/javascript" src="glMatrix-0.9.5.js"></script>
-    <!--<script type="text/javascript" src="Cubes_builder.js"></script>-->
+    <script type="text/javascript" src="Cubes_builder.js"></script>
 
     <script type="text/javascript" src="Classes\Cube.js"></script>
     <script type="text/javascript" src="Classes\Point.js"></script>
