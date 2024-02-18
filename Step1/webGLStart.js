@@ -4,12 +4,6 @@ function updateGame(e) {
 }
 function webGLStart() {
 
-    /*var canvas = document.getElementById("canvasGL");
-
-    canvas.width  = 800;
-    canvas.height = 800;
-*/
-
     var canvas = document.getElementById("canvasGL");
 
     canvas.width = window.innerWidth - 270;
@@ -95,6 +89,28 @@ function webGLStart() {
     });
 
 
+   /* var delta = 0
+    var direction = 0
+    var translationAmount = 0
+    var total_translationAmount = 0
+    var maxDistance = 10;
+    var minDistance = 1;
+
+    function handleMouseRotation(event) {
+
+       /!* delta = event.deltaY || event.detail || event.wheelDelta;
+        direction = (delta > 0) ? 1 : -1;
+        translationAmount = (direction === 1) ? -0.1 : 0.1;*!/
+
+        delta = event.deltaY || event.detail || event.wheelDelta;
+        direction = (delta > 0) ? 1 : -1;
+        translationAmount = (direction === 1) ? -0.1 : 0.1;
+        total_translationAmount += translationAmount
+    }
+
+    canvas.addEventListener("wheel", handleMouseRotation);*/
+
+
 
     var animate = function () {
 
@@ -104,6 +120,27 @@ function webGLStart() {
         mat4.identity(gl.MODELMATRIX_CUBES);
         mat4.rotateY(gl.MODELMATRIX_CUBES, rotationY);
         mat4.rotateX(gl.MODELMATRIX_CUBES, rotationX);
+
+
+
+/*
+        /!*if (direction === 1 && total_translationAmount < 10.0 && total_translationAmount > 0.5){
+            mat4.translate(gl.VIEWMATRIX, [0, 0, translationAmount]);
+        }*!/
+        if (direction === 1) {
+
+            if (total_translationAmount > 0.1){
+                mat4.translate(gl.VIEWMATRIX, [0, 0, translationAmount]);
+                console.log(`[0, 0, ${translationAmount}]`)
+            }
+        } else {
+            if (direction === 1 && total_translationAmount < 6.0){
+                mat4.translate(gl.VIEWMATRIX, [0, 0, translationAmount]);
+                console.log(`[0, 0, ${translationAmount}]`)
+            }
+        }*/
+
+
 
 
 

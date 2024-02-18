@@ -35,7 +35,7 @@ class Cube {
         new Point(-1, -1, 1, 1, -1),
         new Point(-1, -1, -1, 1, 1),
         new Point(-1, -1, 1, 1, 1),
-    ])
+    ], sorting = true)
     {
 
         this.#Id = (_Id <= 0) ? 1 : _Id
@@ -59,11 +59,14 @@ class Cube {
             ]
         }
 
-
-
-        this.#Points.sort(this.Global_Numeration_Sorting);
         this.CalculateMiddlePoints()
-        this.#MiddlePoints.sort(this.Global_Numeration_Sorting)
+
+
+        if (sorting){
+            this.#Points.sort(this.Global_Numeration_Sorting)
+            this.#MiddlePoints.sort(this.Global_Numeration_Sorting)
+        }
+
         this.Calculate_Min_Max()
         this.setLocalIDs()
 
