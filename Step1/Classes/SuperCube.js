@@ -1,25 +1,48 @@
 class SuperCube {
-    #InitialCube
+    #InitialCube = new Cube()
     #Cubes = [];
+    #Points = []
+    #UniquePoints = []
 
-    #PointsAcrossAllCubes_ToDraw = []
-    #MiddlePointsAcrossAllCubes_ToDraw = []
-    #All_PointsAcrossAllCubes_ToDraw = []
-
-    #IndicesAcrossAllCubes_ToDraw = []
-
-    #All_PointsAcrossAllCubes = []
-    #AllUnique_PointsAcrossAllCubes = []
-
+    #PointsToDraw = []
+    #IndicesToDraw = []
 
     AKT = []
     NT = []
-    constructor(_InitialCube = new Cube()) {
-        this.#InitialCube = _InitialCube
+
+    constructor() {
+
     }
 
 
-    Devide(num_X, num_Y, num_Z){
+    Devide(num_X, num_Y, num_Z) {
+
+        //set:
+            //  Cubes = [];
+            //  Points = []
+
+
+            //  PointsToDraw = []
+            //  IndicesToDraw = []
+        this.DevideTool(num_X, num_Y, num_Z)
+
+        //set:
+            //  UniquePoints = []
+        this.SetUniquePoints()
+
+        return this.DrawingTool()
+    }
+
+
+    DevideTool(num_X, num_Y, num_Z){
+
+        this.#Cubes = [];
+        this.#Points = []
+        this.#UniquePoints = []
+
+        this.#PointsToDraw = []
+        this.#IndicesToDraw = []
+
         let IdCounter = 1
         for (let YCube of this.#InitialCube.DevideBy_Y_axis(num_Y)){
             for (let ZCube of YCube.DevideBy_Z_axis(num_Z)){
@@ -31,128 +54,109 @@ class SuperCube {
             }
         }
 
-        this.Func()
-        return this.DrawingTool()
+        /* for (let i of this.#Cubes){
+             console.log(i.CenterPoint)
+         }
+         this.#Cubes.sort(this.Cube_CenterPoint_Sorting)
+         for (let i of this.#Cubes){
+             console.log(i.CenterPoint)
+         }*/
+
+        for (let _cube of this.#Cubes){
+            this.#Points.push(..._cube.Points)
+            this.#PointsToDraw.push(..._cube.GetPointsToDraw())
+            this.#IndicesToDraw.push(..._cube.IndicesToDraw)
+        }
+
+        this.#Points.sort(this.Global_Numeration_Sorting)
+
+
+        //this.Func()
+
     }
 
-    Func(){
-        //1) Set Global IDs
-        //2) Create array All_PointsAcrossAllCubes
-        //2) Create array AllUnique_PointsAcrossAllCubes
 
-        for (let i of this.#Cubes)
-            this.#All_PointsAcrossAllCubes.push(...i.GetAllCubePointsWith_Global_Numeration_Sorting())
+    SetUniquePoints(){
 
-        this.#All_PointsAcrossAllCubes.sort(this.Global_Numeration_Sorting);
-
-
-        this.#All_PointsAcrossAllCubes[0].GlobalID = 1
-
-        this.#AllUnique_PointsAcrossAllCubes
-            .push(this.#All_PointsAcrossAllCubes[0]
+        this.#Points[0].GlobalID = 1
+        this.#UniquePoints
+            .push(this.#Points[0]
                 .copy(
-                    this.#All_PointsAcrossAllCubes[0].LocalID,
-                    this.#All_PointsAcrossAllCubes[0].GlobalID,
+                    this.#Points[0].LocalID,
+                    this.#Points[0].GlobalID,
                 )
             )
 
         let counter = 2
 
-        for (let i = 1; i < this.#All_PointsAcrossAllCubes.length; i++){
-            if (this.#All_PointsAcrossAllCubes[i].X === this.#All_PointsAcrossAllCubes[i - 1].X &&
-                this.#All_PointsAcrossAllCubes[i].Y === this.#All_PointsAcrossAllCubes[i - 1].Y &&
-                this.#All_PointsAcrossAllCubes[i].Z === this.#All_PointsAcrossAllCubes[i - 1].Z)
+        for (let i = 1; i < this.#Points.length; i++){
+            if (this.#Points[i].X === this.#Points[i - 1].X &&
+                this.#Points[i].Y === this.#Points[i - 1].Y &&
+                this.#Points[i].Z === this.#Points[i - 1].Z)
             {
-                this.#All_PointsAcrossAllCubes[i].GlobalID = this.#All_PointsAcrossAllCubes[i - 1].GlobalID
+                this.#Points[i].GlobalID = this.#Points[i - 1].GlobalID
             }
             else {
-                this.#All_PointsAcrossAllCubes[i].GlobalID = counter
+                this.#Points[i].GlobalID = counter
 
-                this.#AllUnique_PointsAcrossAllCubes
-                    .push(this.#All_PointsAcrossAllCubes[i]
+                this.#UniquePoints
+                    .push(this.#Points[i]
                         .copy(
-                            this.#All_PointsAcrossAllCubes[i].LocalID,
-                            this.#All_PointsAcrossAllCubes[i].GlobalID
+                            this.#Points[i].LocalID,
+                            this.#Points[i].GlobalID
                         )
                     )
-
                 counter++
             }
         }
     }
 
-
-
     cretae_AKT_array(){
-        for (let point of this.#AllUnique_PointsAcrossAllCubes)
+        this.AKT = []
+        for (let point of this.#UniquePoints)
             this.AKT.push([point.X, point.Y, point.Z])
 
         return this.AKT
     }
-
     cretae_NT_array(){
-        for (let cube of this.#Cubes){
-            let globalIndicesArray = []
+        this.NT = []
+        for (let cube of this.#Cubes) {
+            let arr = []
+            let cubepoints = [...cube.Points].sort(this.Local_Numeration_Sorting)
+            for (let _point of cubepoints){
+                arr.push(_point.GlobalID)
+            }
 
-            for(let point of cube.GetAllCubePointsWith_Local_Numeration_Sorting())
-                globalIndicesArray.push(point.GlobalID)
+            this.NT.push(arr)
 
-            this.NT.push(globalIndicesArray)
         }
-
         return this.NT
+
     }
 
+    Cube_CenterPoint_Sorting(cube1, cube2){
+        if (cube1.CenterPoint.Y !== cube2.CenterPoint.Y)
+            return cube1.CenterPoint.Y - cube2.CenterPoint.Y;
+        if (cube1.CenterPoint.Z !== cube2.CenterPoint.Z)
+            return cube1.CenterPoint.Z - cube2.CenterPoint.Z;
 
-
-    Get_AKT(){
-        return  [...this.AKT]
+        return cube1.CenterPoint.X - cube2.CenterPoint.X;
     }
-    Get_NT(){
-        return  [...this.NT]
-    }
-
     Global_Numeration_Sorting(point1, point2) {
-        if (point1.Y !== point2.Y) {
+        if (point1.Y !== point2.Y)
             return point1.Y - point2.Y;
-        }
-        if (point1.Z !== point2.Z) {
+        if (point1.Z !== point2.Z)
             return point1.Z - point2.Z;
-        }
+
         return point1.X - point2.X;
     }
 
-    Local_Numeration_Sorting(point1, point2) {
-        return point1.LocalID - point2.LocalID;
-    }
-
-
+    Local_Numeration_Sorting(point1, point2) {return point1.LocalID - point2.LocalID;}
 
     DrawingTool(){
-
-        for (let i of this.#Cubes){
-            let tuple = i.DrawingTool()
-            this.#PointsAcrossAllCubes_ToDraw.push(...tuple[0])
-            this.#MiddlePointsAcrossAllCubes_ToDraw.push(...tuple[1])
-            this.#IndicesAcrossAllCubes_ToDraw.push(...tuple[3])
-        }
-
-        this.#All_PointsAcrossAllCubes_ToDraw = [...this.#PointsAcrossAllCubes_ToDraw, ...this.#MiddlePointsAcrossAllCubes_ToDraw]
-
         return [
-            this.#PointsAcrossAllCubes_ToDraw,
-            this.#MiddlePointsAcrossAllCubes_ToDraw,
-            this.#All_PointsAcrossAllCubes_ToDraw,
-            this.#IndicesAcrossAllCubes_ToDraw,
+            this.#PointsToDraw,
+            this.#IndicesToDraw
         ]
-    }
-
-
-
-
-    print(){
-        for (let i of this.#Cubes){
-            i.print()
-        }
     }
 }

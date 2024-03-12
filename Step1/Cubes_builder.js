@@ -14,27 +14,15 @@ function cubesBuild() {
     };
 
 
-    let o =  new Object()
+    let superCub = new SuperCube()
+    let tool = superCub.Devide(Devide_By_X, Devide_By_Y, Devide_By_Z)
 
-
-    let supercube = new SuperCube()
-    let tool = supercube.Devide(Devide_By_X, Devide_By_Y, Devide_By_Z)
-
-    let tool1 = o.ObjectDrawingTool()
-
-
-    /*cubes.cubes_vertices = tool1[2]
-    cubes.cubes_indices = tool1[3]*/
-
-    cubes.cubes_vertices = tool[2]
-    cubes.cubes_indices = tool[3]
+    cubes.cubes_vertices = tool[0]
+    cubes.cubes_indices = tool[1]
 
 
     cubes.cubes_vertices_count = cubes.cubes_vertices.length
     cubes.cubes_indices_count = cubes.cubes_indices.length
-    cubes.AKT = supercube.cretae_AKT_array()
-    cubes.NT = supercube.cretae_NT_array()
-
     return cubes;
 }
 
