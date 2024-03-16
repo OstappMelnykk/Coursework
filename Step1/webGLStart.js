@@ -112,6 +112,35 @@ function webGLStart() {
 
 
 
+
+    var zoomSpeed = 0.5; // Швидкість зуму
+    var zoomDelta
+
+    function onMouseWheel(event) {
+        if ('wheelDelta' in event) {
+            zoomDelta = event.wheelDelta / 120
+            console.log(zoomDelta)
+        }
+    }
+
+// Додавання слухача подій колеса прокрутки миші
+    window.addEventListener('mousewheel', onMouseWheel, false);
+
+
+
+
+
+
+
+
+
+
+
+
+
+    var translateSum = 1
+
+    mat4.translate(gl.VIEWMATRIX, [0, 0, -5]);
     var animate = function () {
 
         gl.clearColor(0.1176, 0.1216, 0.1333, 1.0);
@@ -121,24 +150,35 @@ function webGLStart() {
         mat4.rotateY(gl.MODELMATRIX_CUBES, rotationY);
         mat4.rotateX(gl.MODELMATRIX_CUBES, rotationX);
 
+        //----------------
 
+        if (zoomDelta > 0) {
+            mat4.translate(gl.VIEWMATRIX, [0, 0, zoomSpeed + 1.2]);
+            translateSum += zoomSpeed
+            zoomDelta = 0
+        }
+        else if (zoomDelta < 0) {
+            mat4.translate(gl.VIEWMATRIX, [0, 0, -zoomSpeed - 1.2]);
+            translateSum -= zoomSpeed
+            zoomDelta = 0
+        }
 
-/*
-        /!*if (direction === 1 && total_translationAmount < 10.0 && total_translationAmount > 0.5){
-            mat4.translate(gl.VIEWMATRIX, [0, 0, translationAmount]);
-        }*!/
-        if (direction === 1) {
+        /*
+                /!*if (direction === 1 && total_translationAmount < 10.0 && total_translationAmount > 0.5){
+                    mat4.translate(gl.VIEWMATRIX, [0, 0, translationAmount]);
+                }*!/
+                if (direction === 1) {
 
-            if (total_translationAmount > 0.1){
-                mat4.translate(gl.VIEWMATRIX, [0, 0, translationAmount]);
-                console.log(`[0, 0, ${translationAmount}]`)
-            }
-        } else {
-            if (direction === 1 && total_translationAmount < 6.0){
-                mat4.translate(gl.VIEWMATRIX, [0, 0, translationAmount]);
-                console.log(`[0, 0, ${translationAmount}]`)
-            }
-        }*/
+                    if (total_translationAmount > 0.1){
+                        mat4.translate(gl.VIEWMATRIX, [0, 0, translationAmount]);
+                        console.log(`[0, 0, ${translationAmount}]`)
+                    }
+                } else {
+                    if (direction === 1 && total_translationAmount < 6.0){
+                        mat4.translate(gl.VIEWMATRIX, [0, 0, translationAmount]);
+                        console.log(`[0, 0, ${translationAmount}]`)
+                    }
+                }*/
 
 
 

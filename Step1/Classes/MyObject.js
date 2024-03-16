@@ -6,14 +6,14 @@ class MyObject {
     constructor() {
 
         this.#Own20Points = [
-            new Point(1, -1, -1, -1, -4),
-            new Point(2, -1, 2, -1, -0.4),
-            new Point(3, -1, 1, -2, 0.3),
-            new Point(4, -1, -1, -1, 0.3),
-            new Point(5, -1, -1, 1, -0.4),
-            new Point(6, -1, 1, 1.3, -0.3),
-            new Point(7, -1, 1, 0.6, 0.6),
-            new Point(8, -1, -1, 1, 0.3),
+            new Point(1, -1, -1, -1, -1),
+            new Point(2, -1, 1, -1, -1),
+            new Point(3, -1, 1, -1, 1),
+            new Point(4, -1, -1, -1, 1),
+            new Point(5, -1, -1, 1, -1),
+            new Point(6, -1, 1, 1, -1),
+            new Point(7, -1, 1, 1, 1),
+            new Point(8, -1, -1, 1, 1),
         ]
 
 
