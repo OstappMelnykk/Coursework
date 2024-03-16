@@ -14,11 +14,24 @@ function cubesBuild() {
     };
 
 
-    let superCub = new SuperCube()
-    let tool = superCub.Devide(Devide_By_X, Devide_By_Y, Devide_By_Z)
+    //let superCub = new SuperCube()
+    // let tool = superCub.Devide(Devide_By_X, Devide_By_Y, Devide_By_Z)
+    //
+    // cubes.cubes_vertices = tool[0]
+    // cubes.cubes_indices = tool[1]
+
+
+
+    /*let myObject = new SuperCube()
+    let tool = myObject.Devide(Devide_By_X, Devide_By_Y, Devide_By_Z)*/
+
+    let myObject = new MyObject()
+    let tool = myObject.Devide(Devide_By_X, Devide_By_Y, Devide_By_Z)
+    //let tool = myObject.dr()
 
     cubes.cubes_vertices = tool[0]
     cubes.cubes_indices = tool[1]
+
 
 
     cubes.cubes_vertices_count = cubes.cubes_vertices.length

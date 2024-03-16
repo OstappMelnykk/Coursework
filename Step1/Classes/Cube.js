@@ -112,6 +112,11 @@ class Cube{
 
         return point1.X - point2.X;
     }
+    //Local_Numeration_Sorting(point1, point2) {return point1.LocalID - point2.LocalID;}
+
+    Local_Numeration_Sorting(a, b) {
+        return a.LocalID - b.LocalID;
+    }
     CalcMinMax(){
         this.#MinX = this.#Points[0].X;
         this.#MinY = this.#Points[0].Y;
@@ -263,5 +268,41 @@ class Cube{
     get Points(){ return [...this.#Points] }
     get IndicesToDraw(){ return [...this.#IndicesToDraw] }
     get CenterPoint(){ return this.#CenterPoint }
+
+
+
+    DefaultValues(){
+        let arr = [
+            new Point(1, -1, -1, -1, -1),
+            new Point(2, -1, 1, -1, -1),
+            new Point(3, -1, 1, -1, 1),
+            new Point(4, -1, -1, -1, 1),
+            new Point(5, -1, -1, 1, -1),
+            new Point(6, -1, 1, 1, -1),
+            new Point(7, -1, 1, 1, 1),
+            new Point(8, -1, -1, 1, 1),
+            new Point(9, -1, 0, -1, -1),
+            new Point(10, -1, 1, -1, 0),
+            new Point(11, -1, 0, -1, 1),
+            new Point(12, -1, -1, -1, 0),
+            new Point(13, -1, -1, 0, -1),
+            new Point(14, -1, 1, 0, -1),
+            new Point(15, -1, 1, 0, 1),
+            new Point(16, -1, -1, 0, 1),
+            new Point(17, -1, 0, 1, -1),
+            new Point(18, -1, 1, 1, 0),
+            new Point(19, -1, 0, 1, 1),
+            new Point(20, -1, -1, 1, 0),
+        ].sort(this.Global_Numeration_Sorting);
+
+        for (let i = 0; i <  arr.length; i++) {
+            arr[i].GlobalID = i + 1;
+        }
+
+        arr.sort(this.Local_Numeration_Sorting)
+
+        return arr
+    }
+
 
 }

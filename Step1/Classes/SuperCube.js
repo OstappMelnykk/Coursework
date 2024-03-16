@@ -1,5 +1,6 @@
 class SuperCube {
     #InitialCube = new Cube()
+
     #Cubes = [];
     #Points = []
     #UniquePoints = []
@@ -10,10 +11,9 @@ class SuperCube {
     AKT = []
     NT = []
 
-    constructor() {
-
-    }
-
+    /*constructor() {
+        this.Devide(1, 1,1)
+    }*/
 
     Devide(num_X, num_Y, num_Z) {
 
@@ -29,6 +29,10 @@ class SuperCube {
         //set:
             //  UniquePoints = []
         this.SetUniquePoints()
+
+        this.cretae_AKT_array()
+        this.cretae_NT_array()
+
 
         return this.DrawingTool()
     }
@@ -54,14 +58,6 @@ class SuperCube {
             }
         }
 
-        /* for (let i of this.#Cubes){
-             console.log(i.CenterPoint)
-         }
-         this.#Cubes.sort(this.Cube_CenterPoint_Sorting)
-         for (let i of this.#Cubes){
-             console.log(i.CenterPoint)
-         }*/
-
         for (let _cube of this.#Cubes){
             this.#Points.push(..._cube.Points)
             this.#PointsToDraw.push(..._cube.GetPointsToDraw())
@@ -69,10 +65,6 @@ class SuperCube {
         }
 
         this.#Points.sort(this.Global_Numeration_Sorting)
-
-
-        //this.Func()
-
     }
 
 
@@ -159,4 +151,18 @@ class SuperCube {
             this.#IndicesToDraw
         ]
     }
+
+    //get DefaultValues(){ return [...this.#DefaultValues] }
+    get Cubes(){ return [...this.#Cubes] }
+    get Points(){ return [...this.#Points] }
+    get PointsToDraw(){ return [...this.#PointsToDraw] }
+    get IndicesToDraw(){ return [...this.#IndicesToDraw] }
+    get UniquePoints(){ return [...this.#UniquePoints] }
+
+
+
+    get AKT(){ return [...this.AKT] }
+    get NT(){ return [...this.NT] }
+
+
 }
